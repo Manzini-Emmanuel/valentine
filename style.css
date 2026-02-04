@@ -173,32 +173,48 @@ body {
    =================================== */
 .countdown-container {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 15px;
+    right: 15px;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: 15px;
+    padding: 8px 15px;
+    border-radius: 12px;
     box-shadow: var(--shadow-md);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    z-index: 10;
+    z-index: 100;
     text-align: center;
     transition: transform 0.3s ease;
 }
 
-.countdown-container:hover {
-    transform: scale(1.05);
+@media (max-width: 600px) {
+    .countdown-container {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        position: absolute;
+        /* Changed from fixed on very small screens to save space */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 15px;
+    }
 }
 
 .countdown-text {
     font-family: var(--font-display);
-    font-size: 0.9rem;
-    margin-bottom: 0.3rem;
+    font-size: 0.8rem;
     color: #fff;
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    .countdown-text {
+        margin-bottom: 0;
+    }
 }
 
 .countdown-timer {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--light-rose);
 }
@@ -220,9 +236,10 @@ body {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     border-radius: 30px;
-    padding: var(--spacing-xl);
+    padding: clamp(1.5rem, 5vw, 3rem);
     max-width: 600px;
-    width: 100%;
+    width: 95%;
+    /* Use more width on mobile */
     box-shadow: var(--shadow-lg);
     text-align: center;
     animation: slideIn 0.8s ease-out;
@@ -243,10 +260,11 @@ body {
 
 .main-title {
     font-family: var(--font-display);
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 8vw, 3rem);
+    /* Fluid typography */
     color: var(--romantic-red);
     margin-bottom: var(--spacing-md);
-    line-height: 1.3;
+    line-height: 1.2;
     animation: pulse 2s infinite ease-in-out;
 }
 
@@ -562,11 +580,74 @@ body {
 }
 
 /* ===================================
+   ANGER EFFECTS
+   =================================== */
+.flash-red {
+    animation: flashRed 0.5s ease-out;
+}
+
+@keyframes flashRed {
+    0% {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    }
+
+    50% {
+        background: #ff4458;
+    }
+
+    100% {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    }
+}
+
+.angry-shake {
+    animation: intenseShake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes intenseShake {
+
+    10%,
+    90% {
+        transform: translate3d(-2px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(4px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-8px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(8px, 0, 0);
+    }
+}
+
+.extreme-anger {
+    background: #4a0000 !important;
+}
+
+.extreme-anger .proposal-card {
+    border: 5px solid #ff4458;
+    box-shadow: 0 0 50px #ff4458;
+}
+
+.extreme-anger .main-title {
+    color: #000;
+    text-shadow: 2px 2px #ff4458;
+}
+
+/* ===================================
    RESPONSIVE DESIGN
    =================================== */
 @media (max-width: 768px) {
     .main-title {
-        font-size: 2rem;
+        /* Handled by clamp */
     }
 
     .subtitle {
@@ -574,61 +655,49 @@ body {
     }
 
     .btn {
-        padding: 0.8rem 2rem;
-        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+        font-size: 1.1rem;
+        width: 100%;
+        /* Stack buttons on small tablets/mobile */
+        max-width: 250px;
     }
 
     .buttons-container {
         flex-direction: column;
+        align-items: center;
         gap: var(--spacing-sm);
     }
 
     .celebration-title {
-        font-size: 2.5rem;
+        font-size: clamp(2rem, 10vw, 4rem);
     }
 
     .celebration-text {
-        font-size: 1.2rem;
-    }
-
-    .countdown-container {
-        top: 10px;
-        right: 10px;
-        padding: var(--spacing-xs) var(--spacing-sm);
-    }
-
-    .countdown-text {
-        font-size: 0.7rem;
-    }
-
-    .countdown-timer {
-        font-size: 0.9rem;
+        font-size: 1.1rem;
     }
 
     .love-letter {
-        padding: var(--spacing-md);
+        padding: 1.5rem;
+        width: 100%;
     }
 
     .letter-header {
-        font-size: 1.4rem;
-    }
-
-    .letter-content {
-        font-size: 0.9rem;
+        font-size: 1.5rem;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 400px) {
+    .container {
+        padding: 10px;
+    }
+
     .proposal-card {
-        padding: var(--spacing-md);
+        padding: 1.2rem;
+        border-radius: 20px;
     }
 
-    .main-title {
-        font-size: 1.6rem;
-    }
-
-    .celebration-title {
-        font-size: 2rem;
+    .celebration-content {
+        padding: 10px;
     }
 }
 
