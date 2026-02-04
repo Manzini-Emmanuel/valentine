@@ -8,16 +8,24 @@ const cuteMessages = [
     "You might regret this! 💔",
     "Give me another chance? 😊",
     "I promise to make you smile every day! 😄",
-    "What if I told you I care about you a lot? 💕",
-    "Just one more click... on YES! 😉",
-    "My heart is breaking... 💔",
-    "Don't you want to be loved? 💖",
-    "I'll be the best Valentine ever! ⭐",
-    "Come on, you know you want to! 😏",
+];
+
+const angerMessages = [
+    "Okay, that's enough... 😠",
+    "STOP CLICKING NO! 😡",
+    "MY HEART IS BREAKING LITERALLY! 💥",
+    "Listen here, you little... click YES! 😤",
+    "DO YOU WANT ME TO CRY? 😭",
+    "Fine, I'm getting ANGRY! 💢",
+    "Error 404: Rejection not supported. 🚫",
+    "I'LL DISABLE THIS BUTTON SOON! ⚡",
+    "YOU'RE DOING THIS ON PURPOSE NOW! 🎯",
+    "CLICK YES OR ELSE! 🔥",
 ];
 
 let noClickCount = 0;
 let yesButtonScale = 1;
+let angerLevel = 0;
 
 // ===================================
 // DOM ELEMENTS
@@ -66,53 +74,96 @@ setInterval(updateCountdown, 1000);
 // NO BUTTON BEHAVIOR
 // ===================================
 function moveNoButton() {
-    const container = mainContainer;
-    const containerRect = container.getBoundingClientRect();
-    const btnRect = noBtn.getBoundingClientRect();
+    // Get current dimensions
+    const btnWidth = noBtn.offsetWidth || 100;
+    const btnHeight = noBtn.offsetHeight || 40;
 
-    // Calculate safe boundaries (keeping button within container)
-    const maxX = containerRect.width - btnRect.width - 40;
-    const maxY = containerRect.height - btnRect.height - 40;
+    // Safety padding
+    const padding = 50;
 
-    // Generate random position
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
+    // Viewport dimensions
+    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+
+    // Define a safe area that avoids the countdown timer at the top (top 80px)
+    const minY = (vw < 600) ? 100 : padding;
+
+    // Calculate max X and Y
+    const maxX = Math.max(padding, vw - btnWidth - padding);
+    const maxY = Math.max(minY, vh - btnHeight - padding);
+
+    // Generate random coordinates within safe range
+    const randomX = Math.floor(Math.random() * (maxX - padding + 1)) + padding;
+    const randomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
 
     // Apply position
     noBtn.style.position = 'fixed';
-    noBtn.style.left = (containerRect.left + randomX) + 'px';
-    noBtn.style.top = (containerRect.top + randomY) + 'px';
-    noBtn.style.transition = 'all 0.3s ease';
+    noBtn.style.left = randomX + 'px';
+    noBtn.style.top = randomY + 'px';
+    noBtn.style.margin = '0';
+    noBtn.style.zIndex = '10000';
+    noBtn.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
 }
 
 function handleNoClick() {
     noClickCount++;
 
-    // Show cute message
-    const randomMessage = cuteMessages[Math.floor(Math.random() * cuteMessages.length)];
+    // Determine if we should show cute or angry messages
+    let messagePool = cuteMessages;
+    if (noClickCount > 5) {
+        messagePool = angerMessages;
+        triggerAngerFeedback();
+    }
+
+    // Show message
+    const randomMessage = messagePool[Math.floor(Math.random() * messagePool.length)];
     cuteMessageEl.textContent = randomMessage;
 
     // Move the button
     moveNoButton();
 
     // Make Yes button bigger and more appealing
-    yesButtonScale += 0.1;
+    yesButtonScale += 0.2; // Growing faster now
     yesBtn.style.transform = `scale(${yesButtonScale})`;
 
-    // Update subtitle
-    if (noClickCount === 3) {
-        subtitleEl.textContent = "You're making this harder than it needs to be! 😅";
-    } else if (noClickCount === 5) {
-        subtitleEl.textContent = "I'm not giving up on us! 💪";
-    } else if (noClickCount === 8) {
-        subtitleEl.textContent = "Please? I really mean it! 🥰";
-    }
+    // Update subtitle based on frustration
+    updateSubtitleState();
 
     // Add shake animation to No button
     noBtn.style.animation = 'shake 0.5s';
     setTimeout(() => {
         noBtn.style.animation = '';
     }, 500);
+}
+
+function triggerAngerFeedback() {
+    // Flash red background
+    document.body.classList.add('flash-red');
+    setTimeout(() => document.body.classList.remove('flash-red'), 500);
+
+    // Shake the whole card
+    const card = document.querySelector('.proposal-card');
+    card.classList.add('angry-shake');
+    setTimeout(() => card.classList.remove('angry-shake'), 500);
+
+    // Increase vibration/anger level
+    angerLevel++;
+    if (angerLevel > 10) {
+        document.body.classList.add('extreme-anger');
+    }
+}
+
+function updateSubtitleState() {
+    if (noClickCount === 3) {
+        subtitleEl.textContent = "You're making this harder than it needs to be! 😅";
+    } else if (noClickCount === 10) {
+        subtitleEl.textContent = "I'm literally fuming right now! 🌋";
+        subtitleEl.style.color = '#ff4458';
+        subtitleEl.style.fontWeight = 'bold';
+    } else if (noClickCount === 15) {
+        subtitleEl.textContent = "JUST CLICK YES ALREADY!!! 🧨";
+        subtitleEl.style.fontSize = '1.5rem';
+    }
 }
 
 // Shake animation (add to button on click)
