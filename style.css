@@ -1,0 +1,653 @@
+/* ===================================
+   CSS RESET & VARIABLES
+   =================================== */
+:root {
+    /* Valentine Color Palette */
+    --primary-pink: #ff6b9d;
+    --secondary-pink: #ffc2d1;
+    --deep-rose: #c94277;
+    --light-rose: #ffe5ec;
+    --romantic-red: #ff4458;
+    --soft-lavender: #e0b0ff;
+    --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-3: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    --gradient-romantic: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+
+    /* Typography */
+    --font-display: 'Pacifico', cursive;
+    --font-body: 'Poppins', sans-serif;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(255, 107, 157, 0.1);
+    --shadow-md: 0 4px 16px rgba(255, 107, 157, 0.2);
+    --shadow-lg: 0 8px 32px rgba(255, 107, 157, 0.3);
+    --shadow-glow: 0 0 20px rgba(255, 107, 157, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+    position: relative;
+    color: #fff;
+}
+
+/* ===================================
+   FLOATING HEARTS BACKGROUND
+   =================================== */
+.hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.heart {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 107, 157, 0.6);
+    transform: rotate(-45deg);
+    animation: floatHearts 15s infinite ease-in-out;
+    opacity: 0;
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 107, 157, 0.6);
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -15px;
+    left: 0;
+}
+
+.heart::after {
+    top: 0;
+    left: 15px;
+}
+
+/* Randomize heart animations */
+.heart:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 12s;
+}
+
+.heart:nth-child(2) {
+    left: 20%;
+    animation-delay: 2s;
+    animation-duration: 14s;
+}
+
+.heart:nth-child(3) {
+    left: 35%;
+    animation-delay: 4s;
+    animation-duration: 13s;
+}
+
+.heart:nth-child(4) {
+    left: 50%;
+    animation-delay: 1s;
+    animation-duration: 15s;
+}
+
+.heart:nth-child(5) {
+    left: 65%;
+    animation-delay: 3s;
+    animation-duration: 11s;
+}
+
+.heart:nth-child(6) {
+    left: 75%;
+    animation-delay: 5s;
+    animation-duration: 16s;
+}
+
+.heart:nth-child(7) {
+    left: 85%;
+    animation-delay: 2.5s;
+    animation-duration: 12.5s;
+}
+
+.heart:nth-child(8) {
+    left: 95%;
+    animation-delay: 4.5s;
+    animation-duration: 14.5s;
+}
+
+@keyframes floatHearts {
+    0% {
+        bottom: -50px;
+        opacity: 0;
+        transform: rotate(-45deg) translateX(0);
+    }
+
+    25% {
+        opacity: 0.8;
+        transform: rotate(-45deg) translateX(20px);
+    }
+
+    50% {
+        transform: rotate(-45deg) translateX(-20px);
+    }
+
+    75% {
+        transform: rotate(-45deg) translateX(10px);
+    }
+
+    100% {
+        bottom: 110%;
+        opacity: 0;
+        transform: rotate(-45deg) translateX(0);
+    }
+}
+
+/* ===================================
+   COUNTDOWN TIMER
+   =================================== */
+.countdown-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 15px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 10;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.countdown-container:hover {
+    transform: scale(1.05);
+}
+
+.countdown-text {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    color: #fff;
+}
+
+.countdown-timer {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--light-rose);
+}
+
+/* ===================================
+   MAIN CONTAINER & PROPOSAL CARD
+   =================================== */
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-md);
+    position: relative;
+    z-index: 1;
+}
+
+.proposal-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 30px;
+    padding: var(--spacing-xl);
+    max-width: 600px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    animation: slideIn 0.8s ease-out;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.main-title {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--romantic-red);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.3;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.emoji {
+    display: inline-block;
+    animation: bounce 1.5s infinite ease-in-out;
+}
+
+.emoji:last-child {
+    animation-delay: 0.3s;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: var(--spacing-xl);
+    font-weight: 300;
+    font-style: italic;
+}
+
+/* ===================================
+   BUTTONS
+   =================================== */
+.buttons-container {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--spacing-lg);
+}
+
+.btn {
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-yes {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: #fff;
+    position: relative;
+    z-index: 1;
+}
+
+.btn-yes:hover {
+    transform: scale(1.1) rotate(-2deg);
+    box-shadow: var(--shadow-glow);
+}
+
+.btn-yes:active {
+    transform: scale(1.05);
+}
+
+.btn-no {
+    background: linear-gradient(135deg, #a8a8a8 0%, #7d7d7d 100%);
+    color: #fff;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.btn-no:hover {
+    transform: scale(0.95);
+}
+
+/* ===================================
+   CUTE MESSAGE
+   =================================== */
+.cute-message {
+    min-height: 30px;
+    font-size: 1rem;
+    color: var(--deep-rose);
+    font-weight: 500;
+    animation: fadeIn 0.5s ease;
+    font-style: italic;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ===================================
+   CELEBRATION SCREEN
+   =================================== */
+.celebration-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 50%, #ffd1ff 100%);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    animation: celebrationFadeIn 1s forwards;
+}
+
+.celebration-screen.active {
+    display: flex;
+}
+
+@keyframes celebrationFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.celebration-content {
+    text-align: center;
+    padding: var(--spacing-lg);
+    max-width: 700px;
+    z-index: 1001;
+}
+
+.celebration-title {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    color: #fff;
+    margin-bottom: var(--spacing-md);
+    animation: scaleIn 0.8s ease-out;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.celebration-text {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: var(--spacing-xl);
+    font-weight: 300;
+    animation: slideIn 1s ease-out 0.3s backwards;
+}
+
+/* ===================================
+   LOVE LETTER
+   =================================== */
+.love-letter-container {
+    margin: var(--spacing-xl) 0;
+    animation: slideIn 1s ease-out 0.6s backwards;
+}
+
+.love-letter {
+    background: #fff;
+    border-radius: 20px;
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-lg);
+    text-align: left;
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.love-letter::before {
+    content: '💌';
+    position: absolute;
+    top: -30px;
+    right: 20px;
+    font-size: 3rem;
+    animation: swing 2s infinite ease-in-out;
+}
+
+@keyframes swing {
+
+    0%,
+    100% {
+        transform: rotate(-10deg);
+    }
+
+    50% {
+        transform: rotate(10deg);
+    }
+}
+
+.letter-header {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--romantic-red);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+}
+
+.letter-content {
+    color: #333;
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+.letter-content p {
+    margin-bottom: var(--spacing-sm);
+}
+
+.letter-signature {
+    margin-top: var(--spacing-md);
+    font-style: italic;
+    color: var(--deep-rose);
+    font-weight: 500;
+}
+
+/* ===================================
+   MUSIC BUTTON
+   =================================== */
+.btn-music {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    margin-top: var(--spacing-lg);
+    animation: slideIn 1s ease-out 0.9s backwards;
+}
+
+.btn-music:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-glow);
+}
+
+/* ===================================
+   CONFETTI
+   =================================== */
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #f0f;
+    top: -10px;
+    animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+    to {
+        top: 110%;
+        transform: rotateZ(720deg);
+    }
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .btn {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+    }
+
+    .buttons-container {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .celebration-title {
+        font-size: 2.5rem;
+    }
+
+    .celebration-text {
+        font-size: 1.2rem;
+    }
+
+    .countdown-container {
+        top: 10px;
+        right: 10px;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+
+    .countdown-text {
+        font-size: 0.7rem;
+    }
+
+    .countdown-timer {
+        font-size: 0.9rem;
+    }
+
+    .love-letter {
+        padding: var(--spacing-md);
+    }
+
+    .letter-header {
+        font-size: 1.4rem;
+    }
+
+    .letter-content {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .proposal-card {
+        padding: var(--spacing-md);
+    }
+
+    .main-title {
+        font-size: 1.6rem;
+    }
+
+    .celebration-title {
+        font-size: 2rem;
+    }
+}
+
+/* ===================================
+   ACCESSIBILITY
+   =================================== */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus states for keyboard navigation */
+.btn:focus {
+    outline: 3px solid var(--primary-pink);
+    outline-offset: 3px;
+}

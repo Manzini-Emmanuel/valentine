@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A special Valentine's Day proposal - Will you be my Valentine?">
+    <title>💕 Will You Be My Valentine? 💕</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Floating Hearts Background -->
+    <div class="hearts-container" id="heartsContainer">
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+    </div>
+
+    <!-- Countdown Timer -->
+    <div class="countdown-container" id="countdownContainer">
+        <div class="countdown-text">Valentine's Day</div>
+        <div class="countdown-timer" id="countdownTimer"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" id="mainContainer">
+        <div class="proposal-card">
+            <h1 class="main-title">
+                <span class="emoji">💝</span>
+                Will You Be My Valentine?
+                <span class="emoji">💝</span>
+            </h1>
+
+            <p class="subtitle" id="subtitle">
+                I've been thinking about this for a while... 💭
+            </p>
+
+            <div class="buttons-container">
+                <button class="btn btn-yes" id="yesBtn">
+                    Yes! 💕
+                </button>
+                <button class="btn btn-no" id="noBtn">
+                    No 😢
+                </button>
+            </div>
+
+            <div class="cute-message" id="cuteMessage"></div>
+        </div>
+    </div>
+
+    <!-- Celebration Screen (Hidden Initially) -->
+    <div class="celebration-screen" id="celebrationScreen">
+        <div class="celebration-content">
+            <h1 class="celebration-title">🎉 Yaaay! 🎉</h1>
+            <p class="celebration-text">You just made me the happiest person alive! 💖</p>
+
+            <div class="love-letter-container">
+                <div class="love-letter" id="loveLetter">
+                    <div class="letter-header">A Love Letter For You 💌</div>
+                    <div class="letter-content">
+                        <p>My Dearest Valentine,</p>
+                        <p>From the moment I met you, my world became brighter. Your smile lights up my darkest days,
+                            and your laughter is my favorite melody.</p>
+                        <p>Every moment with you is a treasure, and I can't wait to create more beautiful memories
+                            together.</p>
+                        <p>Thank you for saying yes and making this Valentine's Day the most special one ever! ✨</p>
+                        <p class="letter-signature">Forever yours,<br>Your Valentine 💕</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-music" id="musicBtn">
+                🎵 Play Our Song
+            </button>
+        </div>
+
+        <!-- Confetti Container -->
+        <div class="confetti-container" id="confettiContainer"></div>
+    </div>
+
+    <!-- Hidden Audio Element -->
+    <audio id="bgMusic" loop>
+        <!-- You can add your favorite romantic song URL here -->
+        <!-- <source src="your-romantic-song.mp3" type="audio/mpeg"> -->
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
